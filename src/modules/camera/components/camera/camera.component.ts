@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MediaDevicesService } from '../../services/media-devices.service';
+import { ApiPhotoService } from '../../services/api-photo.service';
 
 @Component({
   selector: 'app-camera',
@@ -18,8 +19,10 @@ export class CameraComponent implements AfterViewInit {
   height = 0;    // Это будет вычисляться на основе входящего потока
   context: CanvasRenderingContext2D;
   streaming = false;
+  imgBase64: string;
 
-  constructor(private mediaDevices: MediaDevicesService) {}
+  constructor(private mediaDevices: MediaDevicesService,
+    private apiPhoto: ApiPhotoService) {}
 
   ngAfterViewInit(): void {
     this.context = this.canvas.nativeElement.getContext('2d');
@@ -61,8 +64,8 @@ export class CameraComponent implements AfterViewInit {
     this.context.fillStyle = "#AAA";
     this.context.fillRect(0, 0, this.canvas.nativeElement.clientWidth, this.canvas.nativeElement.clientWidth);
 
-    var data = this.canvas.nativeElement.toDataURL('image/png');
-    this.photo.nativeElement.setAttribute('src', data);navigator
+    this.imgBase64 = this.canvas.nativeElement.toDataURL('image/png');
+    this.photo.nativeElement.setAttribute('src', this.imgBase64);
   }
 
   takePhoto(): void {
@@ -71,10 +74,19 @@ export class CameraComponent implements AfterViewInit {
       this.canvas.nativeElement.height = this.height;
       this.context.drawImage(this.video.nativeElement, 0, 0, this.width, this.height);
 
-      var data = this.canvas.nativeElement.toDataURL('image/png');
-      this.photo.nativeElement.setAttribute('src', data);
+      this.imgBase64 = this.canvas.nativeElement.toDataURL('image/png', 0.1);
+      this.photo.nativeElement.setAttribute('src', this.imgBase64);
     } else {
       this.clearPhoto();
     }
+  }
+
+  sendPhoto(): void {
+    this.apiPhoto.postData(this.imgBase64).subscribe((data) => {
+      console.log(data);
+    },
+    err => {
+      console.log(err);
+    });;
   }
 }
