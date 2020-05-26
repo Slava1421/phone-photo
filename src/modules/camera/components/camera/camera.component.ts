@@ -87,6 +87,7 @@ export class CameraComponent implements AfterViewInit {
     },
     err => {
       console.log(err);
+      alert(JSON.stringify(err.message));
     });;
   }
 }

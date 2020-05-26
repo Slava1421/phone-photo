@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +18,18 @@ export class ApiPhotoService {
   postData(data: string): Observable<any> {
 
     const body = { imgBase64: data };
-    return this.http.post('http://localhost:3000/app', body);
+    return this.http.post('/app', body,{
+      headers:
+        new HttpHeaders(
+          {
+            'Content-Type': 'application/json'              // This is empty
+          }
+        )
+    });
+
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // res.header("Access-Control-Allow-Methods", "GET, PATCH, PUT, POST, DELETE, OPTIONS");
+    
   }
 }
