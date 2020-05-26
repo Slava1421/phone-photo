@@ -74,7 +74,7 @@ export class CameraComponent implements AfterViewInit {
       this.canvas.nativeElement.height = this.height;
       this.context.drawImage(this.video.nativeElement, 0, 0, this.width, this.height);
 
-      this.imgBase64 = this.canvas.nativeElement.toDataURL('image/png', 0.1);
+      this.imgBase64 = this.canvas.nativeElement.toDataURL('image/png', 0.8);
       this.photo.nativeElement.setAttribute('src', this.imgBase64);
     } else {
       this.clearPhoto();
