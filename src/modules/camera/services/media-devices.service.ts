@@ -6,7 +6,7 @@ export class MediaDevicesService {
   constructor() { }
 // back camera exact: "environment"
   getDevices(): Promise<MediaStream> {
-    return navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "user" } }, audio: false });
+    return navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'user' } }, audio: false });
   }
       
 }

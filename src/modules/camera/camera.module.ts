@@ -4,10 +4,11 @@ import { CameraComponent } from './components/camera/camera.component';
 import { MediaDevicesService } from './services/media-devices.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiPhotoService } from './services/api-photo.service';
+import { CameraMultiComponent } from './components/camera-multi/camera-multi.component';
 
 
 @NgModule({
-  declarations: [CameraComponent],
+  declarations: [CameraComponent, CameraMultiComponent],
   imports: [
     CommonModule,
     HttpClientModule

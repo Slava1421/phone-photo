@@ -1,11 +1,24 @@
-<div class="camera">
-  <video #video muted playsinline>Video stream not available.</video>
-  <button (click)="sendPhoto()">Send Photo</button>
-  <button #startbutton>Take photo</button>
-</div>
+<div class="photo-page">
+  <div class="camera" [class.minimalize]="!!imgBase64">
+    <video class="portrait landscape" #video muted playsinline>Video stream not available.</video>
+    <ng-container *ngIf="!imgBase64">
+      <div class="wrapper">
+        <button class="take-photo" (click)="takePhoto($event)">
+          <img src="../../../../assets/icons/diaphragm.png" alt="">
+        </button>
+      </div>
+    </ng-container>
 
-<canvas class="canvas" #canvas>
-</canvas>
-<div class="output">
-  <img #photo alt="The screen capture will appear in this box.">
+  </div>
+
+  <canvas class="canvas" #canvas>
+  </canvas>
+  <div class="output" *ngIf="!!imgBase64">
+    <img class="img-portrait img-landscape" [src]="imgBase64" alt="The screen capture will appear in this box.">
+    <div class="wrapper">
+      <button class="take-photo" (click)="clearPhoto()">
+        <img src="../../../../assets/icons/return.png" alt="">
+      </button>
+    </div>
+  </div>
 </div>

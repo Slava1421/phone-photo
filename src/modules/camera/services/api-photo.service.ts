@@ -22,7 +22,7 @@ export class ApiPhotoService {
       headers:
         new HttpHeaders(
           {
-            'Content-Type': 'application/json'              // This is empty
+            'Content-Type': 'application/json'
           }
         )
     });    
